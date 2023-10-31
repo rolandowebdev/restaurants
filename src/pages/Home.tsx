@@ -1,4 +1,5 @@
 import {
+  Badge,
   Card,
   CardContent,
   CardDescription,
@@ -7,6 +8,8 @@ import {
   CardSkeleton,
   CardTitle,
   Header,
+  RatingStar,
+  Separator,
   buttonVariants
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
@@ -36,12 +39,18 @@ export const Home = () => {
                   />
                 </CardHeader>
                 <CardContent>
-                  <CardTitle>{restaurant.name}</CardTitle>
-                  <CardDescription className='mt-2'>
-                    {`${restaurant.description.slice(0, 120)}...`}
-                  </CardDescription>
+                  <CardTitle className='mb-2'>{restaurant.name}</CardTitle>
+                  <RatingStar rating={restaurant.rating} />
+                  <CardDescription>{`${restaurant.description.slice(
+                    0,
+                    90
+                  )}...`}</CardDescription>
+                  <Badge variant='secondary' className='mt-3 block w-fit'>
+                    {restaurant.city}
+                  </Badge>
                 </CardContent>
-                <CardFooter className='flex justify-between'>
+                <CardFooter className='flex flex-col items-start gap-3'>
+                  <Separator />
                   <Link
                     to={`/${restaurant.id}`}
                     className={buttonVariants({
