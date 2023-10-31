@@ -1,6 +1,6 @@
 import { ImageContainer, PageContainer, RatingStar } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
-import { useDetailRestaurant } from '@/hooks/useDetailRestaurant'
+import { useDetailRestaurant } from '@/hooks'
 import { useParams } from 'react-router-dom'
 
 export const Detail = () => {
