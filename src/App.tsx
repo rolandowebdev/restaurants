@@ -1,5 +1,5 @@
 import { Button } from '@/components'
 
 export const App = () => {
-	return <Button>Hello</Button>
+  return <Button>Hello</Button>
 }
