@@ -1,5 +1,5 @@
-import { Button } from '@/components'
+import { Header } from '@/components'
 
 export const App = () => {
-  return <Button>Hello</Button>
+  return <Header />
 }
