@@ -1,26 +1,26 @@
-import { RestaurantResponse } from '@/types'
+import { Restaurant } from '@/types'
 import { useState } from 'react'
 
 export const useLoadMore = (
-  items: RestaurantResponse | undefined,
+  items: Restaurant[] | undefined,
   step: number = 4
 ) => {
   const [isCompleted, setIsCompleted] = useState(false)
   const [indexItem, setIndexItem] = useState(step)
 
-  const handleLoadMore = () => {
+  const loadMore = () => {
     if (!items) return
 
     const newIndex = indexItem + step
 
-    if (newIndex >= items.restaurants.length) {
+    if (newIndex >= items.length) {
       setIsCompleted(true)
-      setIndexItem(items.restaurants.length)
+      setIndexItem(items.length)
     } else {
       setIsCompleted(false)
       setIndexItem(newIndex)
     }
   }
 
-  return { isCompleted, indexItem, handleLoadMore }
+  return { isCompleted, indexItem, loadMore }
 }

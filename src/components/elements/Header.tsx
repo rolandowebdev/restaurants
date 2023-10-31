@@ -1,14 +1,52 @@
+import { Restaurant } from '@/types'
 import {
   Button,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
   Separator
 } from '..'
 
-export const Header = () => {
+type HeaderProps = {
+  filterCity: string
+  filterAlphabetically: string
+  initialListRestaurant: Restaurant[]
+  setFilterByCity: React.Dispatch<React.SetStateAction<string>>
+  setFilterAlphabetically: React.Dispatch<React.SetStateAction<string>>
+}
+
+export const Header = ({
+  filterCity,
+  filterAlphabetically,
+  initialListRestaurant,
+  setFilterByCity,
+  setFilterAlphabetically
+}: HeaderProps) => {
+  const listCity = [
+    'Gorontalo',
+    'Aceh',
+    'Medan',
+    'Bali',
+    'Bandung',
+    'Balikpapan',
+    'Malang',
+    'Ternate',
+    'Surabaya'
+  ]
+
+  const clearFilters = () => {
+    setFilterByCity('')
+    setFilterAlphabetically('')
+  }
+
+  const checkIfUserHasFilter = () => {
+    return filterCity === '' && filterAlphabetically === ''
+  }
+
   return (
     <header className='mx-auto max-w-6xl px-4 pt-4 lg:px-0'>
       <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl'>
@@ -25,35 +63,42 @@ export const Header = () => {
           <small className='text-sm font-medium leading-none'>
             Filter by :
           </small>
-          <Select>
-            <SelectTrigger className='w-40'>
-              <SelectValue placeholder='Restaurant name' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='light'>A-Z</SelectItem>
-              <SelectItem value='dark'>Z-A</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
-            <SelectTrigger className='w-40'>
-              <SelectValue placeholder='Alphabetical' />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value='light'>A-Z</SelectItem>
-              <SelectItem value='dark'>Z-A</SelectItem>
-            </SelectContent>
-          </Select>
-          <Select>
+          <Select
+            onValueChange={(value) => setFilterByCity(value)}
+            disabled={initialListRestaurant.length < 1}>
             <SelectTrigger className='w-40'>
               <SelectValue placeholder='City' />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value='light'>A-Z</SelectItem>
-              <SelectItem value='dark'>Z-A</SelectItem>
+              <SelectGroup>
+                <SelectLabel>City</SelectLabel>
+                {listCity.map((city) => (
+                  <SelectItem key={city} value={city.toLowerCase()}>
+                    {city}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          <Select
+            onValueChange={(value) => setFilterAlphabetically(value)}
+            disabled={initialListRestaurant.length < 1}>
+            <SelectTrigger className='w-40'>
+              <SelectValue placeholder='Alphabetical' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='a-z'>A-Z</SelectItem>
+              <SelectItem value='z-a'>Z-A</SelectItem>
             </SelectContent>
           </Select>
         </div>
-        <Button variant='outline'>Clear All</Button>
+        <Button
+          onClick={clearFilters}
+          className='disabled:cursor-not-allowed'
+          variant={checkIfUserHasFilter() ? 'outline' : 'destructive'}
+          disabled={checkIfUserHasFilter()}>
+          Clear All
+        </Button>
       </nav>
     </header>
   )
