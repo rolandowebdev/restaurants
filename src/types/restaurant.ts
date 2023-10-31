@@ -13,3 +13,39 @@ export type RestaurantResponse = {
   count: number
   restaurants: Restaurant[]
 }
+
+type Category = {
+  name: string
+}
+
+type MenuItem = {
+  name: string
+}
+
+type CustomerReview = {
+  name: string
+  review: string
+  date: string
+}
+
+type RestaurantDetails = {
+  id: string
+  name: string
+  description: string
+  city: string
+  address: string
+  pictureId: string
+  categories: Category[]
+  menus: {
+    foods: MenuItem[]
+    drinks: MenuItem[]
+  }
+  rating: number
+  customerReviews: CustomerReview[]
+}
+
+export type RestaurantDetailsResponse = {
+  error: boolean
+  message: string
+  restaurant: RestaurantDetails
+}
