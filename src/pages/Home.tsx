@@ -4,16 +4,18 @@ import {
   CardDescription,
   CardFooter,
   CardHeader,
+  CardSkeleton,
   CardTitle,
   Header,
   buttonVariants
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
 import { useRestaurant } from '@/hooks'
+import { GhostIcon } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
 export const Home = () => {
-  const { data: listRestaurant } = useRestaurant()
+  const { data: listRestaurant, isLoading } = useRestaurant()
   return (
     <>
       <Header />
@@ -22,34 +24,48 @@ export const Home = () => {
           All Restaurants
         </h2>
 
-        <section className='mt-8 grid grid-cols-4 gap-4'>
-          {listRestaurant?.restaurants.slice(0, 6).map((restaurant) => (
-            <Card>
-              <CardHeader className='h-48'>
-                <img
-                  className='h-full w-full rounded-md object-cover'
-                  src={`${RestaurantsApiUrl.imageUrl}/${restaurant.pictureId}`}
-                  alt={restaurant.name}
-                />
-              </CardHeader>
-              <CardContent>
-                <CardTitle>{restaurant.name}</CardTitle>
-                <CardDescription className='mt-2'>
-                  {`${restaurant.description.slice(0, 120)}...`}
-                </CardDescription>
-              </CardContent>
-              <CardFooter className='flex justify-between'>
-                <Link
-                  to={`/${restaurant.id}`}
-                  className={buttonVariants({
-                    className: 'w-full cursor-pointer'
-                  })}>
-                  Learn More
-                </Link>
-              </CardFooter>
-            </Card>
-          ))}
-        </section>
+        {listRestaurant && listRestaurant.restaurants.length > 0 ? (
+          <section className='my-8 grid grid-cols-4 gap-4'>
+            {listRestaurant?.restaurants.slice(0, 6).map((restaurant) => (
+              <Card key={restaurant.id}>
+                <CardHeader className='h-48'>
+                  <img
+                    className='h-full w-full rounded-md object-cover'
+                    src={`${RestaurantsApiUrl.imageUrl}/${restaurant.pictureId}`}
+                    alt={restaurant.name}
+                  />
+                </CardHeader>
+                <CardContent>
+                  <CardTitle>{restaurant.name}</CardTitle>
+                  <CardDescription className='mt-2'>
+                    {`${restaurant.description.slice(0, 120)}...`}
+                  </CardDescription>
+                </CardContent>
+                <CardFooter className='flex justify-between'>
+                  <Link
+                    to={`/${restaurant.id}`}
+                    className={buttonVariants({
+                      className: 'w-full cursor-pointer'
+                    })}>
+                    Learn More
+                  </Link>
+                </CardFooter>
+              </Card>
+            ))}
+          </section>
+        ) : isLoading ? (
+          <section className='my-8 grid grid-cols-4 gap-4'>
+            {Array.from({ length: 4 }, (_, index) => (
+              <CardSkeleton key={index} />
+            ))}
+          </section>
+        ) : (
+          <div className='mt-16 flex flex-col items-center gap-2'>
+            <GhostIcon className='h-8 w-8 text-zinc-800' />
+            <h3 className='text-xl font-semibold'>Pretty empty around here</h3>
+            <p>List of restaurant is empty.</p>
+          </div>
+        )}
       </main>
     </>
   )
