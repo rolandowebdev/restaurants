@@ -1,27 +1,35 @@
-# React + TypeScript + Vite
+# Restaurants Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+[![Restaurants Preview](public/restaurant-preview.png)](https://restaurants-beta.netlify.app/)
 
-Currently, two official plugins are available:
+This project is an elegantly crafted website designed to curate and display a rich tapestry of culinary experiences offered by a myriad of exceptional restaurants.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Prerequisites
 
-## Expanding the ESLint configuration
+- Node.js (version >= 18.0.0)
+- React.js (version 18.2.0)
+- npm or yarn (_using yarn is recommended_)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Installation
 
-- Configure the top-level `parserOptions` property like this:
+Node.js version `>= 18.0.0` setup with [yarn](https://yarnpkg.com/) is recommended.
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+# install dependencies
+yarn
+
+# serve with hot reload at localhost:5173
+yarn dev
+
+# build for production
+yarn build
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Tech Stack
+
+- UI Framework - [**React**](https://reactjs.org/)
+- Package Manager - [**Yarn**](https://yarnpkg.com/)
+- Component UI - [**Shadcn UI**](https://ui.shadcn.com/)
+- Fonts - [**Font Source**](https://fontsource.org/)
+- Icons - [**Lucide**](https://lucide.dev/)
+- Deployment - [**Netlify**](https://www.netlify.com/)

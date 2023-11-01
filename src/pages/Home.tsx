@@ -111,7 +111,7 @@ export const Home = () => {
           </section>
         ) : (
           <div className='my-12 flex w-full flex-col items-center gap-2'>
-            <FishOff className='h-8 w-8 text-zinc-800' />
+            <FishOff size={100} className='text-zinc-800' />
             <h3 className='text-xl font-semibold'>Pretty empty around here</h3>
             <p>List of restaurant is empty.</p>
           </div>
