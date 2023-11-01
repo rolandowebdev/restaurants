@@ -6,9 +6,9 @@ This project is an elegantly crafted website designed to curate and display a ri
 
 ## Prerequisites
 
-- Node.js (version >= 18.0.0)
-- React.js (version 18.2.0)
-- npm or yarn (_using yarn is recommended_)
+- React.js `version 18.2.0`
+- Node.js `version >= 18.0.0`
+- npm or yarn **(_using yarn is recommended_)**
 
 ## Installation
 
