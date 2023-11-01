@@ -47,7 +47,6 @@ export const Home = () => {
   return (
     <>
       <Header
-        initialListRestaurant={initialListRestaurant}
         filterCity={filterCity}
         filterRating={filterRating}
         filterAlphabetically={filterAlphabetically}
