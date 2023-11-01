@@ -41,8 +41,9 @@ export const Detail = () => {
 
   const detailRestaurant = data?.restaurant
 
-  const { indexItem, isCompleted, loadMore } = useLoadMore({
-    items: detailRestaurant?.customerReviews
+  const { indexItem, loadMore } = useLoadMore({
+    items: detailRestaurant?.customerReviews,
+    step: 3
   })
 
   const initialListReviews = detailRestaurant?.customerReviews?.slice(
@@ -280,8 +281,7 @@ export const Detail = () => {
                       </CardContent>
                     </Card>
                   ))}
-                  {!isCompleted &&
-                  initialListReviews &&
+                  {initialListReviews &&
                   detailRestaurant?.customerReviews &&
                   initialListReviews?.length <
                     detailRestaurant?.customerReviews?.length ? (
