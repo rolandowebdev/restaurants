@@ -4,6 +4,35 @@
 
 This project is an elegantly crafted website designed to curate and display a rich tapestry of culinary experiences offered by a myriad of exceptional restaurants.
 
+## Page Structure
+
+- Main
+
+  - Filter navigation
+    - Restaurant name
+    - City
+    - Rating
+    - Alphabetically
+    - Clear All Filters
+  - Section
+    - Restaurant item
+      - Image
+      - Rating
+      - Description
+      - City
+      - Learn more (navigate to Detail View)
+
+- Detail View
+  - Restaurant Name & Rating
+  - Address
+  - Image
+  - Rating
+  - Category
+  - Section
+    - Drinks List
+    - Foods List
+    - Reviews
+
 ## Prerequisites
 
 - React.js `version 18.2.0`
