@@ -23,6 +23,7 @@ import { Link } from 'react-router-dom'
 export const Home = () => {
   const [filterCity, setFilterCity] = useState('')
   const [filterAlphabetically, setFilterAlphabetically] = useState('')
+  const [filterRating, setFilterRating] = useState(0)
 
   const { data: listRestaurant, isLoading } = useRestaurant()
   const filterListRestaurant = listRestaurant?.restaurants || []
@@ -36,16 +37,22 @@ export const Home = () => {
       ? filterByCity.sort((a, b) => a.name.localeCompare(b.name))
       : filterByCity.sort((a, b) => b.name.localeCompare(a.name))
 
+  const filterByRating = filterByAlphabet.filter(
+    (restaurant) => restaurant.rating >= filterRating
+  )
+
   const { indexItem, isCompleted, loadMore } = useLoadMore(filterByAlphabet)
-  const initialListRestaurant = filterByAlphabet?.slice(0, indexItem)
+  const initialListRestaurant = filterByRating?.slice(0, indexItem)
 
   return (
     <>
       <Header
         initialListRestaurant={initialListRestaurant}
         filterCity={filterCity}
+        filterRating={filterRating}
         filterAlphabetically={filterAlphabetically}
         setFilterByCity={setFilterCity}
+        setFilterRating={setFilterRating}
         setFilterAlphabetically={setFilterAlphabetically}
       />
       <PageContainer>
@@ -100,8 +107,8 @@ export const Home = () => {
             <p>List of restaurant is empty.</p>
           </div>
         )}
-        {initialListRestaurant &&
-        !filterCity &&
+        {!filterCity &&
+        !filterRating &&
         !isCompleted &&
         initialListRestaurant?.length > 1 ? (
           <Button

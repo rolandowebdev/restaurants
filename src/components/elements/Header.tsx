@@ -13,17 +13,21 @@ import {
 
 type HeaderProps = {
   filterCity: string
+  filterRating: number
   filterAlphabetically: string
   initialListRestaurant: Restaurant[]
   setFilterByCity: React.Dispatch<React.SetStateAction<string>>
+  setFilterRating: React.Dispatch<React.SetStateAction<number>>
   setFilterAlphabetically: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Header = ({
   filterCity,
+  filterRating,
   filterAlphabetically,
   initialListRestaurant,
   setFilterByCity,
+  setFilterRating,
   setFilterAlphabetically
 }: HeaderProps) => {
   const listCity = [
@@ -39,12 +43,15 @@ export const Header = ({
   ]
 
   const clearFilters = () => {
+    setFilterRating(0)
     setFilterByCity('')
     setFilterAlphabetically('')
   }
 
   const checkIfUserHasFilter = () => {
-    return filterCity === '' && filterAlphabetically === ''
+    return (
+      filterCity === '' && filterRating === 0 && filterAlphabetically === ''
+    )
   }
 
   return (
@@ -64,8 +71,21 @@ export const Header = ({
             Filter by :
           </small>
           <Select
+            onValueChange={(value) => setFilterRating(Number(value))}
+            disabled={initialListRestaurant?.length < 1}>
+            <SelectTrigger className='w-40'>
+              <SelectValue placeholder='Rating' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='0'>All Ratings</SelectItem>
+              <SelectItem value='4'>4 and above</SelectItem>
+              <SelectItem value='4.5'>4.5 and above</SelectItem>
+              <SelectItem value='5'>5</SelectItem>
+            </SelectContent>
+          </Select>
+          <Select
             onValueChange={(value) => setFilterByCity(value)}
-            disabled={initialListRestaurant.length < 1}>
+            disabled={initialListRestaurant?.length < 1}>
             <SelectTrigger className='w-40'>
               <SelectValue placeholder='City' />
             </SelectTrigger>
@@ -82,7 +102,7 @@ export const Header = ({
           </Select>
           <Select
             onValueChange={(value) => setFilterAlphabetically(value)}
-            disabled={initialListRestaurant.length < 1}>
+            disabled={initialListRestaurant?.length < 1}>
             <SelectTrigger className='w-40'>
               <SelectValue placeholder='Alphabetical' />
             </SelectTrigger>
