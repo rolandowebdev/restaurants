@@ -1,10 +1,12 @@
-import { Restaurant } from '@/types'
+import { Restaurant, Review } from '@/types'
 import { useState } from 'react'
 
-export const useLoadMore = (
-  items: Restaurant[] | undefined,
-  step: number = 4
-) => {
+type useLoadMoreProps = {
+  items: Restaurant[] | Review[] | undefined
+  step?: number
+}
+
+export const useLoadMore = ({ items, step = 4 }: useLoadMoreProps) => {
   const [isCompleted, setIsCompleted] = useState<boolean>(false)
   const [indexItem, setIndexItem] = useState<number>(step)
 

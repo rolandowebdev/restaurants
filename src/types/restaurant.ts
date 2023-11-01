@@ -49,3 +49,9 @@ export type RestaurantDetailsResponse = {
   message: string
   restaurant: RestaurantDetails
 }
+
+export type Review = {
+  id?: string
+  name: string
+  review: string
+}

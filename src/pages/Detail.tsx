@@ -1,24 +1,86 @@
 import {
+  Avatar,
   Badge,
+  Button,
   Card,
   CardContent,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
   ImageContainer,
+  Input,
   PageContainer,
   RatingStar,
-  Separator
+  Separator,
+  Textarea,
+  queryClient
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
-import { useDetailRestaurant } from '@/hooks'
+import { useDetailRestaurant, useLoadMore, useToast } from '@/hooks'
+import { axiosInstance } from '@/lib'
+import { Review } from '@/types'
+import { reviewSchema } from '@/utils'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
+import { useMutation } from '@tanstack/react-query'
 import { GlassWater, Pizza } from 'lucide-react'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useParams } from 'react-router-dom'
+import * as z from 'zod'
 
 export const Detail = () => {
+  const { toast } = useToast()
   const { restaurantId } = useParams()
   const { data } = useDetailRestaurant({
     id: restaurantId
   })
 
   const detailRestaurant = data?.restaurant
+
+  const { indexItem, isCompleted, loadMore } = useLoadMore({
+    items: detailRestaurant?.customerReviews
+  })
+
+  const initialListReviews = detailRestaurant?.customerReviews?.slice(
+    0,
+    indexItem
+  )
+
+  const reviewForm = useForm<z.infer<typeof reviewSchema>>({
+    resolver: zodResolver(reviewSchema),
+    defaultValues: {
+      id: restaurantId,
+      name: '',
+      review: ''
+    }
+  })
+
+  const addReview = useMutation({
+    mutationFn: (newReview: Review) => {
+      return axiosInstance.post('/review', newReview, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['detail-restaurant', restaurantId]
+      })
+    }
+  })
+
+  const onSubmitReview = (values: z.infer<typeof reviewSchema>) => {
+    addReview.mutate(values)
+    toast({
+      variant: 'success',
+      title: 'Success',
+      description: 'Your review has been added 🎉️.'
+    })
+    reviewForm.reset()
+  }
 
   return (
     <PageContainer>
@@ -61,13 +123,13 @@ export const Detail = () => {
         </div>
       </article>
 
-      <article className='my-10 sm:my-12 lg:my-14'>
-        <div className='flex flex-col items-center gap-4 sm:flex-row'>
+      <article className='my-10 grid grid-cols-1 gap-6 sm:my-12 lg:my-14 lg:grid-cols-2'>
+        <div className='flex w-full flex-col items-center gap-4'>
           <div className='w-full'>
-            <h3 className='text-xl font-semibold tracking-tight'>Drinks</h3>
+            <h3 className='text-2xl font-semibold tracking-tight'>Drinks</h3>
             <Separator className='my-3' />
-            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3'>
-              {detailRestaurant?.menus.drinks.slice(0, 12).map((drink, id) => (
+            <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
+              {detailRestaurant?.menus.drinks.map((drink, id) => (
                 <Card
                   key={id}
                   className='cursor-default transition-all hover:bg-secondary'>
@@ -82,10 +144,10 @@ export const Detail = () => {
             </div>
           </div>
           <div className='w-full'>
-            <h3 className='text-xl font-semibold tracking-tight'>Foods</h3>
+            <h3 className='text-2xl font-semibold tracking-tight'>Foods</h3>
             <Separator className='my-3' />
-            <div className='grid grid-cols-1 gap-2 md:grid-cols-2 lg:grid-cols-3'>
-              {detailRestaurant?.menus.foods.slice(0, 12).map((food, id) => (
+            <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
+              {detailRestaurant?.menus.foods.map((food, id) => (
                 <Card
                   key={id}
                   className='cursor-default transition-all hover:bg-secondary'>
@@ -97,6 +159,90 @@ export const Detail = () => {
                   </CardContent>
                 </Card>
               ))}
+            </div>
+          </div>
+        </div>
+
+        <div className='w-full'>
+          <h3 className='text-2xl font-semibold tracking-tight'>Reviews</h3>
+          <Separator className='my-3' />
+          <div className='w-full'>
+            <FormProvider {...reviewForm}>
+              <form
+                onSubmit={reviewForm.handleSubmit(onSubmitReview)}
+                className='space-y-3'>
+                <FormField
+                  control={reviewForm.control}
+                  name='name'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Name</FormLabel>
+                      <FormControl>
+                        <Input placeholder='Your name.' {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={reviewForm.control}
+                  name='review'
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Review</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder='Type your review here.'
+                          className='resize-none'
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <Button type='submit' className='w-full'>
+                  Submit
+                </Button>
+              </form>
+            </FormProvider>
+
+            <div className='mt-4 flex flex-col gap-2'>
+              {initialListReviews?.map((review, id) => (
+                <Card key={id} className='border-none shadow-none'>
+                  <CardContent className='flex gap-4'>
+                    <Avatar>
+                      <AvatarImage
+                        src='https://github.com/shadcn.png'
+                        alt='@shadcn'
+                      />
+                      <AvatarFallback>shadcn</AvatarFallback>
+                    </Avatar>
+
+                    <div className='flex flex-col gap-2'>
+                      <h4 className='text-base text-muted-foreground'>
+                        {review.name}
+                        <span className='ml-2 text-xs text-zinc-400'>
+                          {review.date}
+                        </span>
+                      </h4>
+                      <p>{review.review}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+              {!isCompleted &&
+              initialListReviews &&
+              detailRestaurant?.customerReviews &&
+              initialListReviews?.length <
+                detailRestaurant?.customerReviews?.length ? (
+                <Button
+                  onClick={loadMore}
+                  className='mt-3 block w-full'
+                  variant='outline'>
+                  Load More
+                </Button>
+              ) : null}
             </div>
           </div>
         </div>

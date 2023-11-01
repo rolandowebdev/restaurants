@@ -46,7 +46,9 @@ export const Home = () => {
     (restaurant) => restaurant.rating >= filterRating
   )
 
-  const { indexItem, isCompleted, loadMore } = useLoadMore(filterByAlphabet)
+  const { indexItem, isCompleted, loadMore } = useLoadMore({
+    items: filterByAlphabet
+  })
 
   const initialListRestaurant = filterByRating?.slice(0, indexItem)
 
