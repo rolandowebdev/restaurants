@@ -57,6 +57,8 @@ yarn build
 ## Tech Stack
 
 - UI Framework - [**React**](https://reactjs.org/)
+- Data Fetching - [**React Query**](https://tanstack.com/query/latest/)
+- HTTP Client - [**Axios**](https://axios-http.com/)
 - Package Manager - [**Yarn**](https://yarnpkg.com/)
 - Component UI - [**Shadcn UI**](https://ui.shadcn.com/)
 - Fonts - [**Font Source**](https://fontsource.org/)
