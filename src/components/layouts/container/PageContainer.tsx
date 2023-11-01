@@ -8,7 +8,7 @@ type PageContainerProps = {
 
 export const PageContainer = ({ className, children }: PageContainerProps) => {
   return (
-    <main className={cn('mx-auto my-8 max-w-6xl px-4 pt-4 lg:px-0', className)}>
+    <main className={cn('mx-auto my-8 max-w-6xl px-8 pt-4 xl:px-0', className)}>
       {children}
     </main>
   )

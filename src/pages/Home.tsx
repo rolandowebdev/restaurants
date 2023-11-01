@@ -69,7 +69,7 @@ export const Home = () => {
         {initialListRestaurant && initialListRestaurant.length > 0 ? (
           <section className='my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
             {initialListRestaurant.map((restaurant) => (
-              <Card key={restaurant.id}>
+              <Card key={restaurant.id} className='p-3'>
                 <CardHeader className='h-48'>
                   <img
                     className='h-full w-full rounded-md object-cover'
@@ -77,12 +77,12 @@ export const Home = () => {
                     alt={restaurant.name}
                   />
                 </CardHeader>
-                <CardContent>
-                  <CardTitle className='mb-2'>{restaurant.name}</CardTitle>
+                <CardContent className='py-3'>
+                  <CardTitle className='mb-1'>{restaurant.name}</CardTitle>
                   <RatingStar rating={restaurant.rating} />
-                  <CardDescription>{`${restaurant.description.slice(
+                  <CardDescription className='mt-2'>{`${restaurant.description.slice(
                     0,
-                    90
+                    95
                   )}...`}</CardDescription>
                   <Badge variant='secondary' className='mt-3 block w-fit'>
                     {restaurant.city}

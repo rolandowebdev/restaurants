@@ -60,7 +60,7 @@ export const Header = ({
   }
 
   return (
-    <header className='mx-auto max-w-6xl px-4 pt-4 lg:px-0'>
+    <header className='mx-auto max-w-6xl px-8 pt-4 xl:px-0'>
       <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl'>
         Restaurants
       </h1>

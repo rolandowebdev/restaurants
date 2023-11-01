@@ -59,7 +59,7 @@ export const Combobox = ({
           <CommandInput
             placeholder={`Search ${placeholderText.toLowerCase()}...`}
           />
-          <CommandEmpty>No framework found.</CommandEmpty>
+          <CommandEmpty>{`No ${placeholderText.toLowerCase()} found.`}</CommandEmpty>
           <CommandGroup>
             {options.map((option) => (
               <CommandItem
