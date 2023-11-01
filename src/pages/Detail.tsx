@@ -77,7 +77,6 @@ export const Detail = () => {
   const onSubmitReview = (values: z.infer<typeof reviewSchema>) => {
     addReview.mutate(values)
     toast({
-      variant: 'success',
       title: 'Success',
       description: 'Your review has been added 🎉️.'
     })
@@ -184,7 +183,7 @@ export const Detail = () => {
                       key={id}
                       className='cursor-default transition-all hover:bg-secondary'>
                       <CardContent className='flex items-center gap-2'>
-                        <GlassWater size={16} />
+                        <GlassWater size={16} className='text-zinc-800' />
                         <span className='text-xs font-medium leading-none'>
                           {drink.name}
                         </span>
@@ -202,7 +201,7 @@ export const Detail = () => {
                       key={id}
                       className='cursor-default transition-all hover:bg-secondary'>
                       <CardContent className='flex items-center gap-2'>
-                        <Pizza size={16} />
+                        <Pizza size={16} className='text-zinc-800' />
                         <span className='text-xs font-medium leading-none'>
                           {food.name}
                         </span>
