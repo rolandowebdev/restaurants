@@ -16,7 +16,7 @@ import {
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
 import { useLoadMore, useRestaurant } from '@/hooks'
-import { GhostIcon } from 'lucide-react'
+import { FishOff } from 'lucide-react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
@@ -93,7 +93,7 @@ export const Home = () => {
                 <CardFooter className='flex flex-col items-start gap-3'>
                   <Separator />
                   <Link
-                    to={`/${restaurant.id}`}
+                    to={`/detail/${restaurant.id}`}
                     className={buttonVariants({
                       className: 'w-full cursor-pointer'
                     })}>
@@ -111,7 +111,7 @@ export const Home = () => {
           </section>
         ) : (
           <div className='my-12 flex w-full flex-col items-center gap-2'>
-            <GhostIcon className='h-8 w-8 text-zinc-800' />
+            <FishOff className='h-8 w-8 text-zinc-800' />
             <h3 className='text-xl font-semibold'>Pretty empty around here</h3>
             <p>List of restaurant is empty.</p>
           </div>
