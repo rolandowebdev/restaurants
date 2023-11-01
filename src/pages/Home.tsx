@@ -21,6 +21,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const Home = () => {
+  const [filterName, setFilterName] = useState('')
   const [filterCity, setFilterCity] = useState('')
   const [filterAlphabetically, setFilterAlphabetically] = useState('')
   const [filterRating, setFilterRating] = useState(0)
@@ -32,25 +33,32 @@ export const Home = () => {
     restaurant.city.toLowerCase().includes(filterCity.toLowerCase())
   )
 
+  const filterByName = filterByCity.filter((restaurant) =>
+    restaurant.name.toLowerCase().includes(filterName.toLowerCase())
+  )
+
   const filterByAlphabet =
     filterAlphabetically === 'a-z'
-      ? filterByCity.sort((a, b) => a.name.localeCompare(b.name))
-      : filterByCity.sort((a, b) => b.name.localeCompare(a.name))
+      ? filterByName.sort((a, b) => a.name.localeCompare(b.name))
+      : filterByName.sort((a, b) => b.name.localeCompare(a.name))
 
   const filterByRating = filterByAlphabet.filter(
     (restaurant) => restaurant.rating >= filterRating
   )
 
   const { indexItem, isCompleted, loadMore } = useLoadMore(filterByAlphabet)
+
   const initialListRestaurant = filterByRating?.slice(0, indexItem)
 
   return (
     <>
       <Header
+        filterName={filterName}
         filterCity={filterCity}
         filterRating={filterRating}
         filterAlphabetically={filterAlphabetically}
-        setFilterByCity={setFilterCity}
+        setFilterName={setFilterName}
+        setFilterCity={setFilterCity}
         setFilterRating={setFilterRating}
         setFilterAlphabetically={setFilterAlphabetically}
       />

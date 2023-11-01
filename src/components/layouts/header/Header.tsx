@@ -1,37 +1,50 @@
-import { alphabeticallyOptions, cityOptions, ratingOptions } from '@/constants'
+import {
+  alphabeticallyOptions,
+  cityOptions,
+  ratingOptions,
+  restaurantOptions
+} from '@/constants'
 import { Button, Combobox, Separator } from '../..'
 
 type HeaderProps = {
+  filterName: string
   filterCity: string
   filterRating: number
   filterAlphabetically: string
-  setFilterByCity: React.Dispatch<React.SetStateAction<string>>
+  setFilterName: React.Dispatch<React.SetStateAction<string>>
+  setFilterCity: React.Dispatch<React.SetStateAction<string>>
   setFilterRating: React.Dispatch<React.SetStateAction<number>>
   setFilterAlphabetically: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const Header = ({
+  filterName,
   filterCity,
   filterRating,
   filterAlphabetically,
-  setFilterByCity,
+  setFilterName,
+  setFilterCity,
   setFilterRating,
   setFilterAlphabetically
 }: HeaderProps) => {
   const clearFilters = () => {
+    setFilterName('')
+    setFilterCity('')
     setFilterRating(0)
-    setFilterByCity('')
     setFilterAlphabetically('')
   }
 
   const checkIfUserHasFilter = () => {
     return (
-      filterCity === '' && filterRating === 0 && filterAlphabetically === ''
+      filterName === '' &&
+      filterCity === '' &&
+      filterRating === 0 &&
+      filterAlphabetically === ''
     )
   }
 
   const handleSelectCity = (value: string) => {
-    setFilterByCity(value)
+    setFilterCity(value)
   }
 
   const handleSelectRating = (value: string) => {
@@ -40,6 +53,10 @@ export const Header = ({
 
   const handleSelectAlphabetically = (value: string) => {
     setFilterAlphabetically(value)
+  }
+
+  const handleSelectName = (value: string) => {
+    setFilterName(value)
   }
 
   return (
@@ -59,6 +76,16 @@ export const Header = ({
             Filter by :
           </small>
           <Combobox
+            options={restaurantOptions}
+            onSelect={handleSelectName}
+            placeholderText='Restaurant'
+          />
+          <Combobox
+            options={cityOptions}
+            onSelect={handleSelectCity}
+            placeholderText='City'
+          />
+          <Combobox
             options={ratingOptions}
             onSelect={handleSelectRating}
             placeholderText='Rating'
@@ -68,15 +95,9 @@ export const Header = ({
             onSelect={handleSelectAlphabetically}
             placeholderText='Alphabetically'
           />
-          <Combobox
-            options={cityOptions}
-            onSelect={handleSelectCity}
-            placeholderText='City'
-          />
         </div>
         <Button
           onClick={clearFilters}
-          className='disabled:cursor-not-allowed'
           variant={checkIfUserHasFilter() ? 'outline' : 'destructive'}
           disabled={checkIfUserHasFilter()}>
           Clear All
