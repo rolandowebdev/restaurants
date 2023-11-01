@@ -121,21 +121,21 @@ export const Detail = () => {
         </div>
       ) : (
         <>
-          <div className='flex items-center'>
+          <div className='flex flex-col-reverse items-center md:flex-row'>
             <Link
               to='/'
               className={buttonVariants({
                 variant: 'outline',
                 className:
-                  'z-10 flex flex-shrink items-center gap-1 text-[16px]'
+                  'z-10 mt-4 flex flex-shrink items-center gap-1 text-[16px] md:mt-0'
               })}>
               Back to Home
             </Link>
             <div className='flex-1 text-center'>
-              <h1 className='-ml-[100px] mb-3 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+              <h1 className='mb-3 text-4xl font-extrabold tracking-tight md:-ml-[100px] lg:text-5xl'>
                 {detailRestaurant?.name}
               </h1>
-              <span className='-ml-[100px] leading-7 [&:not(:first-child)]:mt-6'>
+              <span className='leading-7 md:-ml-[100px] [&:not(:first-child)]:mt-6'>
                 {detailRestaurant?.address}
               </span>
             </div>
@@ -178,7 +178,7 @@ export const Detail = () => {
                   Drinks
                 </h3>
                 <Separator className='my-3' />
-                <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
+                <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
                   {detailRestaurant?.menus.drinks.map((drink, id) => (
                     <Card
                       key={id}
@@ -196,7 +196,7 @@ export const Detail = () => {
               <div className='w-full'>
                 <h3 className='text-2xl font-semibold tracking-tight'>Foods</h3>
                 <Separator className='my-3' />
-                <div className='grid grid-cols-1 gap-2 lg:grid-cols-2'>
+                <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
                   {detailRestaurant?.menus.foods.map((food, id) => (
                     <Card
                       key={id}

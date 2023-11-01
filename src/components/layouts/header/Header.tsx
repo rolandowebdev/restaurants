@@ -65,9 +65,10 @@ export const Header = ({
         Restaurants
       </h1>
       <p className='w-10/12 leading-7 [&:not(:first-child)]:mt-6'>
-        Explore restaurants, find the perfect spot, stay updated on food trends,
-        and connect with fellow foodies. Join us on a flavorful journey
-        celebrating the art of dining!
+        Indulge in a world of flavors at our restaurant website. Discover
+        diverse menus, trends, and join a community passionate about exceptional
+        dining experiences. Join us in savoring the essence of culinary
+        artistry.
       </p>
       <Separator className='my-4' />
       <nav className='flex items-center justify-between'>
