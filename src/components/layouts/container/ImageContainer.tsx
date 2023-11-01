@@ -12,7 +12,7 @@ export const ImageContainer = ({
   return (
     <div
       className={cn(
-        'h-[430px] rounded-xl bg-gray-900/5 p-4 ring-1 ring-inset ring-gray-900/10 lg:rounded-2xl',
+        'h-[250px] rounded-xl bg-gray-900/5 p-4 ring-1 ring-inset ring-gray-900/10 sm:h-[400px] lg:rounded-2xl',
         className
       )}>
       {children}

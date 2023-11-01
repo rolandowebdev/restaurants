@@ -71,34 +71,41 @@ export const Header = ({
         artistry.
       </p>
       <Separator className='my-4' />
-      <nav className='flex items-center justify-between'>
-        <div className='flex flex-wrap items-center gap-3'>
-          <small className='text-sm font-medium leading-none'>
-            Filter by :
-          </small>
-          <Combobox
-            options={restaurantOptions}
-            onSelect={handleSelectName}
-            placeholderText='Restaurant'
-          />
-          <Combobox
-            options={cityOptions}
-            onSelect={handleSelectCity}
-            placeholderText='City'
-          />
-          <Combobox
-            options={ratingOptions}
-            onSelect={handleSelectRating}
-            placeholderText='Rating'
-          />
-          <Combobox
-            options={alphabeticallyOptions}
-            onSelect={handleSelectAlphabetically}
-            placeholderText='Alphabetically'
-          />
+      <nav className='flex flex-col items-center justify-between gap-3 lg:flex-row'>
+        <div className='flex w-full'>
+          <div className='flex w-full flex-col items-center gap-3 lg:flex-row'>
+            <small className='min-w-fit text-left text-sm font-medium leading-none'>
+              Filter by :
+            </small>
+            <Combobox
+              className='w-full justify-start lg:w-[200px] lg:justify-center'
+              options={restaurantOptions}
+              onSelect={handleSelectName}
+              placeholderText='Restaurant'
+            />
+            <Combobox
+              className='w-full justify-start lg:w-[200px] lg:justify-center'
+              options={cityOptions}
+              onSelect={handleSelectCity}
+              placeholderText='City'
+            />
+            <Combobox
+              className='w-full justify-start lg:w-[200px] lg:justify-center'
+              options={ratingOptions}
+              onSelect={handleSelectRating}
+              placeholderText='Rating'
+            />
+            <Combobox
+              className='w-full justify-start lg:w-[200px] lg:justify-center'
+              options={alphabeticallyOptions}
+              onSelect={handleSelectAlphabetically}
+              placeholderText='Alphabetically'
+            />
+          </div>
         </div>
         <Button
           onClick={clearFilters}
+          className='w-full lg:w-fit'
           variant={checkIfUserHasFilter() ? 'outline' : 'destructive'}
           disabled={checkIfUserHasFilter()}>
           Clear All

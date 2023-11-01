@@ -69,7 +69,7 @@ export const Home = () => {
           All Restaurants
         </h2>
         {initialListRestaurant && initialListRestaurant.length > 0 ? (
-          <section className='my-8 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
+          <section className='my-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
             {initialListRestaurant.map((restaurant) => (
               <Card key={restaurant.id} className='p-3'>
                 <CardHeader className='h-48'>
