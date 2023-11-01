@@ -15,6 +15,7 @@ import {
   RatingStar,
   Separator,
   Textarea,
+  buttonVariants,
   queryClient
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
@@ -27,7 +28,7 @@ import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { useMutation } from '@tanstack/react-query'
 import { GlassWater, Pizza } from 'lucide-react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import * as z from 'zod'
 
 export const Detail = () => {
@@ -84,13 +85,23 @@ export const Detail = () => {
 
   return (
     <PageContainer>
-      <div className='text-center'>
-        <h1 className='mb-3 text-4xl font-extrabold tracking-tight lg:text-5xl'>
-          {detailRestaurant?.name}
-        </h1>
-        <span className='leading-7 [&:not(:first-child)]:mt-6'>
-          {detailRestaurant?.address}
-        </span>
+      <div className='flex items-center'>
+        <Link
+          to='/'
+          className={buttonVariants({
+            variant: 'outline',
+            className: 'z-10 flex flex-shrink items-center gap-1 text-[16px]'
+          })}>
+          Back to Home
+        </Link>
+        <div className='flex-1 text-center'>
+          <h1 className='-ml-[100px] mb-3 text-4xl font-extrabold tracking-tight lg:text-5xl'>
+            {detailRestaurant?.name}
+          </h1>
+          <span className='-ml-[100px] leading-7 [&:not(:first-child)]:mt-6'>
+            {detailRestaurant?.address}
+          </span>
+        </div>
       </div>
 
       <article className='my-10 sm:my-12 lg:my-14'>
