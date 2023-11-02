@@ -3,13 +3,18 @@ import '@fontsource/plus-jakarta-sans'
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import { QueryClientRootProvider } from '@/components'
+import { Footer, QueryClientRootProvider, Toaster } from '@/components'
 import { App } from '@/App'
+import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <QueryClientRootProvider>
-      <App />
-    </QueryClientRootProvider>
+    <BrowserRouter>
+      <QueryClientRootProvider>
+        <App />
+        <Toaster />
+        <Footer />
+      </QueryClientRootProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )

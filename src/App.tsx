@@ -1,17 +1,19 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import { Detail, Home, NotFound } from '@/pages'
-import { Footer, Toaster } from '@/components'
+import { useEffect } from 'react'
 
 export const App = () => {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='*' element={<NotFound />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/detail/:restaurantId' element={<Detail />} />
-      </Routes>
-      <Toaster />
-      <Footer />
-    </BrowserRouter>
+    <Routes>
+      <Route path='*' element={<NotFound />} />
+      <Route path='/' element={<Home />} />
+      <Route path='/detail/:restaurantId' element={<Detail />} />
+    </Routes>
   )
 }
