@@ -57,10 +57,15 @@ yarn build
 ## Tech Stack
 
 - UI Framework - [**React**](https://reactjs.org/)
+- Type Checker - [**TypeScript**](https://www.typescriptlang.org/)
 - Data Fetching - [**React Query**](https://tanstack.com/query/latest/)
 - HTTP Client - [**Axios**](https://axios-http.com/)
 - Package Manager - [**Yarn**](https://yarnpkg.com/)
 - Component UI - [**Shadcn UI**](https://ui.shadcn.com/)
 - Fonts - [**Font Source**](https://fontsource.org/)
 - Icons - [**Lucide**](https://lucide.dev/)
+- Schema Validation - [**Zod**](https://zod.dev/)
+- Form Validation - [**React Hook Form**](https://react-hook-form.com/)
+- Client Side Routing - [**React Router Dom**](https://reactrouter.com/en/main)
 - Deployment - [**Netlify**](https://www.netlify.com/)
+- Build Tool - [**Vite**](https://vitejs.dev/)
