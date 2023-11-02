@@ -14,7 +14,7 @@ export const RatingStar = ({ rating }: RatingStarProps) => {
           <span
             key={index}
             className={cn(
-              index <= rating ? 'text-yellow-300' : 'text-slate-300'
+              index <= rating ? 'text-yellow-300' : 'text-zinc-300'
             )}>
             <span className='text-2xl'>&#9733;</span>
           </span>

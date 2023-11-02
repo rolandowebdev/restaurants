@@ -257,11 +257,11 @@ export const Detail = () => {
                   </form>
                 </FormProvider>
 
-                <div className='mt-4 flex flex-col gap-2'>
+                <div className='mt-4 flex flex-col'>
                   {initialListReviews?.map((review, id) => (
                     <Card key={id} className='border-none shadow-none'>
                       <CardContent className='flex gap-4'>
-                        <Avatar>
+                        <Avatar className='h-8 w-8'>
                           <AvatarImage
                             src='https://github.com/shadcn.png'
                             alt='@shadcn'
@@ -269,12 +269,11 @@ export const Detail = () => {
                           <AvatarFallback>shadcn</AvatarFallback>
                         </Avatar>
 
-                        <div className='flex flex-col gap-2'>
-                          <h4 className='text-base text-muted-foreground'>
+                        <div className='flex w-full flex-col gap-2 rounded bg-muted p-3'>
+                          <h4 className='flex flex-wrap items-center gap-1 text-xs text-muted-foreground'>
                             {review.name}
-                            <span className='ml-2 text-xs text-zinc-400'>
-                              {review.date}
-                            </span>
+                            <span>•</span>
+                            <span>{review.date}</span>
                           </h4>
                           <p>{review.review}</p>
                         </div>

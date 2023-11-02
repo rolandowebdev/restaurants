@@ -64,11 +64,10 @@ export const Header = ({
       <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl'>
         Restaurants
       </h1>
-      <p className='w-10/12 leading-7 [&:not(:first-child)]:mt-6'>
-        Indulge in a world of flavors at our restaurant website. Discover
-        diverse menus, trends, and join a community passionate about exceptional
-        dining experiences. Join us in savoring the essence of culinary
-        artistry.
+      <p className='leading-7 lg:w-3/4 [&:not(:first-child)]:mt-6'>
+        Welcome! Explore diverse menus, culinary trends, and join a passionate
+        community celebrating exceptional dining experiences. Savor the artistry
+        of flavors and culinary excellence with us.
       </p>
       <Separator className='my-4' />
       <nav className='flex flex-col items-center justify-between gap-3 lg:flex-row'>
@@ -108,7 +107,7 @@ export const Header = ({
           className='w-full lg:w-fit'
           variant={checkIfUserHasFilter() ? 'outline' : 'destructive'}
           disabled={checkIfUserHasFilter()}>
-          Clear All
+          Clear Filter
         </Button>
       </nav>
     </header>
