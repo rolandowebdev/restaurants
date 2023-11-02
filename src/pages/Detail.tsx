@@ -260,7 +260,7 @@ export const Detail = () => {
                 <div className='mt-4 flex flex-col'>
                   {initialListReviews?.map((review, id) => (
                     <Card key={id} className='border-none shadow-none'>
-                      <CardContent className='flex gap-4'>
+                      <CardContent className='flex gap-2'>
                         <Avatar className='h-8 w-8'>
                           <AvatarImage
                             src='https://github.com/shadcn.png'
