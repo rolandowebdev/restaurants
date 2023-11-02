@@ -31,10 +31,10 @@ export const Footer = () => {
             <h4 className='font-bold'>Explore Us</h4>
             <ul className='flex flex-col gap-2'>
               <li className='cursor-pointer text-muted-foreground hover:underline'>
-                Our Outlets
+                Privacy
               </li>
               <li className='cursor-pointer text-muted-foreground hover:underline'>
-                Privacy
+                Our Outlets
               </li>
               <li className='cursor-pointer text-muted-foreground hover:underline'>
                 Terms & Conditions
