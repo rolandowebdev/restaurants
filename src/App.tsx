@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Detail, Home, NotFound } from '@/pages'
-import { Toaster } from '@/components'
+import { Footer, Toaster } from '@/components'
 
 export const App = () => {
   return (
@@ -11,6 +11,7 @@ export const App = () => {
         <Route path='/detail/:restaurantId' element={<Detail />} />
       </Routes>
       <Toaster />
+      <Footer />
     </BrowserRouter>
   )
 }

@@ -275,7 +275,7 @@ export const Detail = () => {
                             <span>•</span>
                             <span>{review.date}</span>
                           </h4>
-                          <p>{review.review}</p>
+                          <p className='text-sm'>{review.review}</p>
                         </div>
                       </CardContent>
                     </Card>
