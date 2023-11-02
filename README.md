@@ -21,6 +21,10 @@ This project is an elegantly crafted website designed to curate and display a ri
       - Description
       - City
       - Learn more (navigate to Detail View)
+  - Footer
+    - Logo & Description
+    - Social Links
+    - Copyright
 
 - Detail View
   - Restaurant Name & Rating
@@ -32,6 +36,10 @@ This project is an elegantly crafted website designed to curate and display a ri
     - Drinks List
     - Foods List
     - Reviews
+  - Footer
+    - Logo & Description
+    - Social Links
+    - Copyright
 
 ## Prerequisites
 
