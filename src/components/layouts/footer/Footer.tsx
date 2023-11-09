@@ -16,13 +16,13 @@ export const Footer = () => {
           <div className='flex flex-col gap-2'>
             <h4 className='font-bold'>Service</h4>
             <ul className='flex flex-col gap-2'>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Online Order
               </li>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Pre Reservation
               </li>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Dinner & Lunch
               </li>
             </ul>
@@ -30,13 +30,13 @@ export const Footer = () => {
           <div className='flex flex-col gap-2'>
             <h4 className='font-bold'>Explore Us</h4>
             <ul className='flex flex-col gap-2'>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Privacy
               </li>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Our Outlets
               </li>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Terms & Conditions
               </li>
             </ul>
@@ -44,17 +44,17 @@ export const Footer = () => {
           <div className='flex flex-col gap-2'>
             <h4 className='font-bold'>Contact Us</h4>
             <ul className='flex flex-col gap-2'>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 Support @restaurants.id
               </li>
-              <li className='cursor-pointer text-muted-foreground hover:underline'>
+              <li className='w-fit cursor-pointer text-muted-foreground hover:underline'>
                 021-345-5675
               </li>
             </ul>
           </div>
         </div>
       </div>
-      <p>Ⓒ {currentYear} Restaurants • All Rights Reserved</p>
+      <p>© {currentYear} Restaurants • All Rights Reserved</p>
     </footer>
   )
 }

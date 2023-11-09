@@ -7,8 +7,8 @@ type useLoadMoreProps = {
 }
 
 export const useLoadMore = ({ items, step = 4 }: useLoadMoreProps) => {
-  const [isCompleted, setIsCompleted] = useState<boolean>(false)
-  const [indexItem, setIndexItem] = useState<number>(step)
+  const [isCompleted, setIsCompleted] = useState(false)
+  const [indexItem, setIndexItem] = useState(step)
 
   const loadMore = () => {
     if (!items) return

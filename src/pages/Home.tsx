@@ -21,12 +21,13 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 export const Home = () => {
-  const [filterName, setFilterName] = useState<string>('')
-  const [filterCity, setFilterCity] = useState<string>('')
-  const [filterAlphabetically, setFilterAlphabetically] = useState<string>('')
-  const [filterRating, setFilterRating] = useState<number>(0)
+  const [filterName, setFilterName] = useState('')
+  const [filterCity, setFilterCity] = useState('')
+  const [filterAlphabetically, setFilterAlphabetically] = useState('')
+  const [filterRating, setFilterRating] = useState(0)
 
   const { data: listRestaurant, isLoading } = useRestaurant()
+
   const filterListRestaurant = listRestaurant?.restaurants || []
 
   const filterByCity = filterListRestaurant.filter((restaurant) =>

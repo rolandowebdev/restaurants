@@ -31,8 +31,8 @@ export const Combobox = ({
   className = 'w-[200px] justify-between',
   onSelect
 }: ComboboxProps) => {
-  const [open, setOpen] = useState<boolean>(false)
-  const [value, setValue] = useState<string>('')
+  const [open, setOpen] = useState(false)
+  const [value, setValue] = useState('')
 
   const handleSelect = (selectedValue: string) => {
     setValue(selectedValue)

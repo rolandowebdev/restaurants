@@ -27,7 +27,7 @@ import { reviewSchema } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { useMutation } from '@tanstack/react-query'
-import { FishOff, GlassWater, Pizza } from 'lucide-react'
+import { FishOff, GlassWater, Loader2, Pizza } from 'lucide-react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { Link, useParams } from 'react-router-dom'
 import * as z from 'zod'
@@ -39,17 +39,14 @@ export const Detail = () => {
     id: restaurantId
   })
 
-  const detailRestaurant = data?.restaurant
+  const restaurant = data?.restaurant
 
   const { indexItem, loadMore } = useLoadMore({
-    items: detailRestaurant?.customerReviews,
+    items: restaurant?.customerReviews,
     step: 3
   })
 
-  const initialListReviews = detailRestaurant?.customerReviews?.slice(
-    0,
-    indexItem
-  )
+  const initialListReviews = restaurant?.customerReviews?.slice(0, indexItem)
 
   const reviewForm = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
@@ -60,7 +57,7 @@ export const Detail = () => {
     }
   })
 
-  const addReview = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (newReview: Review) => {
       return axiosInstance.post('/review', newReview, {
         headers: {
@@ -68,7 +65,7 @@ export const Detail = () => {
         }
       })
     },
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({
         queryKey: ['detail-restaurant', restaurantId]
       })
@@ -76,10 +73,10 @@ export const Detail = () => {
   })
 
   const onSubmitReview = (values: z.infer<typeof reviewSchema>) => {
-    addReview.mutate(values)
+    mutate(values)
     toast({
       title: 'Success',
-      description: 'Your review has been added 🎉️.'
+      description: 'Your review has been added ✅️'
     })
     reviewForm.reset()
   }
@@ -96,11 +93,11 @@ export const Detail = () => {
   return (
     <PageContainer
       className={cn(
-        !detailRestaurant
+        !restaurant
           ? 'flex h-[calc(100vh-64px)] items-center justify-center'
           : ''
       )}>
-      {!detailRestaurant ? (
+      {!restaurant ? (
         <div className='my-12 flex w-full flex-col items-center gap-2'>
           <FishOff size={150} className='text-zinc-800' />
           <h1 className='text-4xl font-extrabold tracking-tight lg:text-5xl'>
@@ -133,10 +130,10 @@ export const Detail = () => {
             </Link>
             <div className='flex-1 text-center'>
               <h1 className='mb-3 text-4xl font-extrabold tracking-tight md:-ml-[100px] lg:text-5xl'>
-                {detailRestaurant?.name}
+                {restaurant?.name}
               </h1>
               <span className='leading-7 md:-ml-[100px] [&:not(:first-child)]:mt-6'>
-                {detailRestaurant?.address}
+                {restaurant?.address}
               </span>
             </div>
           </div>
@@ -146,22 +143,22 @@ export const Detail = () => {
               <ImageContainer>
                 <img
                   className='h-full w-full rounded-lg object-cover'
-                  src={`${RestaurantsApiUrl.imageUrl}/${detailRestaurant?.pictureId}`}
+                  src={`${RestaurantsApiUrl.imageUrl}/${restaurant?.pictureId}`}
                   alt=''
                 />
               </ImageContainer>
               <div>
                 <div className='flex flex-wrap items-center gap-3'>
                   <h2 className='text-3xl font-semibold tracking-tight first:mt-0'>
-                    {detailRestaurant?.name}
+                    {restaurant?.name}
                   </h2>
-                  <RatingStar rating={detailRestaurant?.rating as number} />
+                  <RatingStar rating={restaurant?.rating as number} />
                 </div>
                 <p className='mb-2 leading-7 text-zinc-500 [&:not(:first-child)]:mt-6'>
-                  {detailRestaurant?.description}
+                  {restaurant?.description}
                 </p>
                 <div className='mt-4 flex items-center gap-1'>
-                  {detailRestaurant?.categories.map((category, id) => (
+                  {restaurant?.categories.map((category, id) => (
                     <Badge key={id} className='px-3'>
                       {category.name}
                     </Badge>
@@ -179,7 +176,7 @@ export const Detail = () => {
                 </h3>
                 <Separator className='my-3' />
                 <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
-                  {detailRestaurant?.menus.drinks.map((drink, id) => (
+                  {restaurant?.menus.drinks.map((drink, id) => (
                     <Card
                       key={id}
                       className='cursor-default transition-all hover:bg-secondary'>
@@ -197,7 +194,7 @@ export const Detail = () => {
                 <h3 className='text-2xl font-semibold tracking-tight'>Foods</h3>
                 <Separator className='my-3' />
                 <div className='grid grid-cols-1 gap-2 sm:grid-cols-2'>
-                  {detailRestaurant?.menus.foods.map((food, id) => (
+                  {restaurant?.menus.foods.map((food, id) => (
                     <Card
                       key={id}
                       className='cursor-default transition-all hover:bg-secondary'>
@@ -251,8 +248,15 @@ export const Detail = () => {
                         </FormItem>
                       )}
                     />
-                    <Button type='submit' className='w-full'>
-                      Submit
+                    <Button
+                      disabled={isPending}
+                      type='submit'
+                      className='w-full'>
+                      {isPending ? (
+                        <Loader2 className='animate-spin' />
+                      ) : (
+                        'Submit'
+                      )}
                     </Button>
                   </form>
                 </FormProvider>
@@ -283,9 +287,8 @@ export const Detail = () => {
                     </Card>
                   ))}
                   {initialListReviews &&
-                  detailRestaurant?.customerReviews &&
                   initialListReviews?.length <
-                    detailRestaurant?.customerReviews?.length ? (
+                    restaurant?.customerReviews?.length ? (
                     <Button
                       onClick={loadMore}
                       className='mt-3 block w-full'
