@@ -28,7 +28,7 @@ type CustomerReview = {
   date: string
 }
 
-type RestaurantDetails = {
+export type RestaurantDetails = {
   id: string
   name: string
   description: string

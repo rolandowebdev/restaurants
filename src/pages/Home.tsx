@@ -52,6 +52,11 @@ export const Home = () => {
   })
 
   const initialListRestaurant = filterByRating?.slice(0, indexItem)
+  const showLoadMore =
+    !filterCity &&
+    !filterRating &&
+    !isCompleted &&
+    initialListRestaurant?.length > 1
 
   return (
     <>
@@ -117,10 +122,7 @@ export const Home = () => {
             <p>List of restaurant is empty.</p>
           </div>
         )}
-        {!filterCity &&
-        !filterRating &&
-        !isCompleted &&
-        initialListRestaurant?.length > 1 ? (
+        {showLoadMore ? (
           <Button
             onClick={loadMore}
             className='mx-auto block w-40'

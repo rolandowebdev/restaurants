@@ -22,7 +22,7 @@ import {
 import { RestaurantsApiUrl } from '@/constants'
 import { useDetailRestaurant, useLoadMore, useToast } from '@/hooks'
 import { axiosInstance, cn } from '@/lib'
-import { Review } from '@/types'
+import { RestaurantDetails, Review } from '@/types'
 import { reviewSchema } from '@/utils'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
@@ -39,14 +39,16 @@ export const Detail = () => {
     id: restaurantId
   })
 
-  const restaurant = data?.restaurant
+  const restaurant = data?.restaurant as RestaurantDetails
 
   const { indexItem, loadMore } = useLoadMore({
     items: restaurant?.customerReviews,
     step: 3
   })
 
-  const initialListReviews = restaurant?.customerReviews?.slice(0, indexItem)
+  const initialReviews = restaurant?.customerReviews?.slice(0, indexItem) || []
+  const showLoadMore =
+    initialReviews?.length < restaurant?.customerReviews?.length
 
   const reviewForm = useForm<z.infer<typeof reviewSchema>>({
     resolver: zodResolver(reviewSchema),
@@ -262,7 +264,7 @@ export const Detail = () => {
                 </FormProvider>
 
                 <div className='mt-4 flex flex-col'>
-                  {initialListReviews?.map((review, id) => (
+                  {initialReviews?.map((review, id) => (
                     <Card
                       key={id}
                       className='break-words border-none shadow-none'>
@@ -286,9 +288,7 @@ export const Detail = () => {
                       </CardContent>
                     </Card>
                   ))}
-                  {initialListReviews &&
-                  initialListReviews?.length <
-                    restaurant?.customerReviews?.length ? (
+                  {showLoadMore ? (
                     <Button
                       onClick={loadMore}
                       className='mt-3 block w-full'
