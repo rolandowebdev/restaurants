@@ -6,7 +6,6 @@ export const alphabeticallyOptions: Option[] = [
 ]
 
 export const ratingOptions: Option[] = [
-  { label: 'All Ratings', value: '0' },
   { label: '4 and above', value: '4' },
   { label: '4.5 and above', value: '4.5' },
   { label: '5', value: '5' }

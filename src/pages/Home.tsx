@@ -16,59 +16,71 @@ import {
 } from '@/components'
 import { RestaurantsApiUrl } from '@/constants'
 import { useLoadMore, useRestaurant } from '@/hooks'
+import { Restaurant } from '@/types'
 import { FishOff } from 'lucide-react'
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 
-export const Home = () => {
-  const [filterName, setFilterName] = useState('')
-  const [filterCity, setFilterCity] = useState('')
-  const [filterAlphabetically, setFilterAlphabetically] = useState('')
-  const [filterRating, setFilterRating] = useState(0)
+const handleFilterRestaurant = (
+  restaurants: Restaurant[],
+  searchParams: URLSearchParams
+) => {
+  const filterParams = {
+    city: searchParams.get('city')?.toLowerCase() ?? '',
+    name: searchParams.get('name')?.toLowerCase() ?? '',
+    alphabetically: searchParams.get('alphabetically')?.toLowerCase() ?? '',
+    rating: searchParams.get('rating') ?? ''
+  }
 
-  const { data: listRestaurant, isLoading } = useRestaurant()
-
-  const filterListRestaurant = listRestaurant?.restaurants || []
-
-  const filterByCity = filterListRestaurant.filter((restaurant) =>
-    restaurant.city.toLowerCase().includes(filterCity.toLowerCase())
+  const filterByCity = restaurants.filter((restaurant) =>
+    restaurant.city.toLowerCase().includes(filterParams.city)
   )
 
   const filterByName = filterByCity.filter((restaurant) =>
-    restaurant.name.toLowerCase().includes(filterName.toLowerCase())
+    restaurant.name.toLowerCase().includes(filterParams.name)
   )
 
-  const filterByAlphabet =
-    filterAlphabetically === 'a-z'
-      ? filterByName.sort((a, b) => a.name.localeCompare(b.name))
-      : filterByName.sort((a, b) => b.name.localeCompare(a.name))
+  const filterByAlphabet = filterByName.sort((a, b) =>
+    a.name.localeCompare(b.name)
+  )
 
   const filterByRating = filterByAlphabet.filter(
-    (restaurant) => restaurant.rating >= filterRating
+    (restaurant) => restaurant.rating >= Number(filterParams.rating)
+  )
+
+  return filterByRating
+}
+
+export const Home = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { data: listRestaurant, isLoading } = useRestaurant()
+
+  const filterRestaurant = handleFilterRestaurant(
+    listRestaurant?.restaurants || [],
+    searchParams
   )
 
   const { indexItem, isCompleted, loadMore } = useLoadMore({
-    items: filterByAlphabet
+    items: filterRestaurant
   })
 
-  const initialListRestaurant = filterByRating?.slice(0, indexItem)
-  const showLoadMore =
-    !filterCity &&
-    !filterRating &&
-    !isCompleted &&
+  const filterParams = {
+    city: searchParams.get('city')?.toLowerCase() ?? '',
+    name: searchParams.get('name')?.toLowerCase() ?? '',
+    alphabetically: searchParams.get('alphabetically')?.toLowerCase() ?? '',
+    rating: searchParams.get('rating') ?? ''
+  }
+
+  const initialListRestaurant = filterRestaurant?.slice(0, indexItem)
+  const isShowLoadMore =
+    !(filterParams.city || filterParams.rating || isCompleted) &&
     initialListRestaurant?.length > 1
 
   return (
     <>
       <Header
-        filterName={filterName}
-        filterCity={filterCity}
-        filterRating={filterRating}
-        filterAlphabetically={filterAlphabetically}
-        setFilterName={setFilterName}
-        setFilterCity={setFilterCity}
-        setFilterRating={setFilterRating}
-        setFilterAlphabetically={setFilterAlphabetically}
+        filterParams={filterParams}
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
       />
       <PageContainer>
         <h2 className='border-b pb-4 text-3xl font-semibold tracking-tight first:mt-0'>
@@ -99,7 +111,7 @@ export const Home = () => {
                 <CardFooter className='flex flex-col items-start gap-3'>
                   <Separator />
                   <Link
-                    to={`/detail/${restaurant.id}`}
+                    to={`/${restaurant.id}`}
                     className={buttonVariants({
                       className: 'w-full cursor-pointer'
                     })}>
@@ -122,7 +134,7 @@ export const Home = () => {
             <p>List of restaurant is empty.</p>
           </div>
         )}
-        {showLoadMore ? (
+        {isShowLoadMore ? (
           <Button
             onClick={loadMore}
             className='mx-auto block w-40'

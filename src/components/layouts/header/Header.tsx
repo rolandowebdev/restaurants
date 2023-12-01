@@ -5,58 +5,57 @@ import {
   restaurantOptions
 } from '@/constants'
 import { Button, Combobox, Separator } from '../..'
+import { SetURLSearchParams } from 'react-router-dom'
+import { URLSearchParams } from 'url'
 
 type HeaderProps = {
-  filterName: string
-  filterCity: string
-  filterRating: number
-  filterAlphabetically: string
-  setFilterName: React.Dispatch<React.SetStateAction<string>>
-  setFilterCity: React.Dispatch<React.SetStateAction<string>>
-  setFilterRating: React.Dispatch<React.SetStateAction<number>>
-  setFilterAlphabetically: React.Dispatch<React.SetStateAction<string>>
+  filterParams: {
+    city: string
+    name: string
+    alphabetically: string
+    rating: string
+  }
+  searchParams: URLSearchParams
+  setSearchParams: SetURLSearchParams
 }
 
 export const Header = ({
-  filterName,
-  filterCity,
-  filterRating,
-  filterAlphabetically,
-  setFilterName,
-  setFilterCity,
-  setFilterRating,
-  setFilterAlphabetically
+  filterParams,
+  searchParams,
+  setSearchParams
 }: HeaderProps) => {
   const clearFilters = () => {
-    setFilterName('')
-    setFilterCity('')
-    setFilterRating(0)
-    setFilterAlphabetically('')
+    setSearchParams('')
   }
 
   const checkIfUserHasFilter = () => {
+    const { name, city, alphabetically, rating } = filterParams
     return (
-      filterName === '' &&
-      filterCity === '' &&
-      filterRating === 0 &&
-      filterAlphabetically === ''
+      name === '' &&
+      city === '' &&
+      Number(rating) === 0 &&
+      alphabetically === ''
     )
   }
 
   const handleSelectCity = (value: string) => {
-    setFilterCity(value)
+    searchParams.set('city', value)
+    setSearchParams(searchParams)
   }
 
   const handleSelectRating = (value: string) => {
-    setFilterRating(Number(value))
+    searchParams.set('rating', value)
+    setSearchParams(searchParams)
   }
 
   const handleSelectAlphabetically = (value: string) => {
-    setFilterAlphabetically(value)
+    searchParams.set('alphabetically', value)
+    setSearchParams(searchParams)
   }
 
   const handleSelectName = (value: string) => {
-    setFilterName(value)
+    searchParams.set('name', value)
+    setSearchParams(searchParams)
   }
 
   return (
